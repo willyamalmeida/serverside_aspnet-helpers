@@ -1,0 +1,80 @@
+﻿@using serverside_aspnet.Helpers
+
+@model ComponenteTabela
+
+@{
+    var idComponente = Guid.NewGuid().ToString("N");
+
+    var modelParaOClientSide = new
+    {
+        pagina = Model.Pagina,
+        quantidade = Model.Quantidade,
+        controller = Model.Controller,
+        actionConsulte = Model.ActionConsulte,
+        actionEditar = Model.ActionEditar,
+        colunas = Model.Colunas,
+        habiliteFiltroDePesquisa = Model.HabiliteFiltroDePesquisa,
+        identificador = Model.IdentificadorDaPropriedade
+    };
+
+    Func<int, string> obtenhaClassNameTabelaHeader = coluna =>
+    {
+        return coluna > 0 ? "col-" + coluna : "col";
+    };
+}
+
+<div id="@(idComponente)" class="treinamento-tabela">
+
+    @if (Model.HabiliteFiltroDePesquisa)
+    {
+        @Html.TreinamentoLayoutGrid().AdicioneColuna(4, @<text>@Html.TreinamentoTextBox("filtro")</text>)
+    }
+
+    <table id="@(Model.IdentificadorDaPropriedade)"
+           name="@(Model.IdentificadorDaPropriedade)"
+           class="table table-sm table-condensed table-hover">
+        <thead class="thead-dark">
+            <tr>
+                @foreach (var coluna in Model.Colunas)
+                {
+                    <th class="@obtenhaClassNameTabelaHeader(@coluna.Tamanho)" scope="col">@coluna.Label</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-1">
+            <button class="btn btn-link border btn-sm" name="atualizar">
+                <img src="~/images/atualizar.svg" />
+            </button>
+        </div>
+        <div class="col align-items-center">
+            @(Html.TreinamentoPaginacao("paginacao")
+                .Controller(Model.Controller)
+                .Action(@Model.ActionConsulte)
+                .Pagina(@Model.Pagina)
+                .Quantidade(@Model.Quantidade)
+                .SeletorTabela("#" + @Model.IdentificadorDaPropriedade)
+                .ApiTabela("treinamento.tabela"))
+        </div>
+        <div class="col text-right">
+            <label>
+                <span name="total" class="badge badge-secondary rounded-circle">0</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        $(function() {
+            treinamento.carregueJavascript("/js/treinamento.tabela.js", {
+                callback: function() {
+                    new treinamento.tabela($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+                }
+            })
+        })
+</script>

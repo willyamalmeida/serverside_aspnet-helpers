@@ -1,0 +1,58 @@
+﻿@using System
+
+@model serverside_aspnet.Models.ComponenteModel
+
+@{
+    var idComponente = Guid.NewGuid().ToString("N");
+    var propriedadeSelecionada = Model.IdentificadorDaPropriedade + "." + Model.CampoChave;
+    var modelParaOClientSide = new
+    {
+        identificador = Model.IdentificadorDaPropriedade,
+        controller = Model.Controller,
+        action = Model.Action,
+        itemSelecionado = Model.Objeto,
+        colunas = Model.Colunas,
+        campoChave = Model.CampoChave,
+        camposTemplate = Model.CamposTemplate,
+        quantidade = Model.QtdDeItensRetornados,
+        propriedadeSelecionada = propriedadeSelecionada
+    };
+}
+
+<div id="@(idComponente)" class="treinamento-combogrid">
+
+    @Html.Hidden(@propriedadeSelecionada)
+
+    <div class="dropdown">
+        <input type="text"
+               class="form-control form-control-sm"
+               placeholder="@(Model.Obrigatorio ? "Campo obrigatório" : "")"
+               data-pesquisar
+               id="@(Model.IdentificadorDaPropriedade)"
+               name="@(Model.IdentificadorDaPropriedade)"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false" />
+
+        <div class="dropdown-menu" aria-labelledby="@(Model.IdentificadorDaPropriedade)">
+            <table name="tabela" class="table table-sm table-condensed table-hover">
+                <thead class="thead-dark">
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        treinamento.carregueCss("/css/treinamento.combogrid.css");
+        treinamento.carregueJavascript("/js/treinamento.combogrid.js", {
+            callback: function () {
+                new treinamento.combogrid($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+            }
+        });
+    })
+</script>

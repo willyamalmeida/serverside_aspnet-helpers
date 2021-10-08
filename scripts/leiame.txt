@@ -1,0 +1,5 @@
+#criar a imagem
+docker build -t treinamentoaspnet:v1 .
+
+#executar container
+docker-compose up -d

@@ -1,0 +1,43 @@
+﻿.painel {
+    height: 100%;
+}
+
+    .painel .barra-botoes {
+        background-color: #4261d0;
+        border-radius: 0 0 10px 10px;
+        padding: 5px 10px 5px 10px;
+        box-shadow: 0px 3px 4px 1px #8c8a8a;
+        margin-bottom: 15px;
+        margin-top: -16px;
+        height: 45px;
+    }
+
+        .painel .barra-botoes a {
+            text-decoration: none;
+            color: #e4e4e4;
+            font-size: 1.2em;
+            margin-right: 5px;
+            float: left;
+        }
+
+            .painel .barra-botoes a:hover {
+                cursor: pointer;
+                font-weight: bold;
+                color: #FFFFFF;
+            }
+
+    .painel .titulo {
+        font-size: 20px;
+        font-weight: bold;
+        color: #4261d0;
+        font-family: Segoe UI;
+        border-bottom: 1px solid #cecccc;
+        margin-bottom: 30px;
+    }
+
+    .painel .obrigatorio {
+        color: #f00;
+        width: 10px;
+        text-align: right;
+        margin-right: -15px
+    }

@@ -1,0 +1,39 @@
+﻿@using System
+
+@model serverside_aspnet.Models.ComponentePaginacaoModel
+
+@{
+    var idComponente = Guid.NewGuid().ToString("N");
+
+    var modelParaOClientSide = new
+    {
+        identificador = Model.IdentificadorDaPropriedade,
+        controller = Model.Controller,
+        action = Model.Action,
+        pagina = Model.Pagina,
+        quantidade = Model.Quantidade,
+        seletorTabela = Model.SeletorTabela,
+        apiTabela = Model.ApiTabela
+    };
+}
+
+<div id="@(idComponente)" class="treinamento-paginacao">
+    <nav aria-label="Page navigation"
+         id="@(Model.IdentificadorDaPropriedade)"
+         name="@(Model.IdentificadorDaPropriedade)">
+
+        <ul class="pagination pagination-sm">
+            @* paginas *@
+        </ul>
+    </nav>
+</div>
+
+<script>
+    $(function () {
+        treinamento.carregueJavascript("/js/treinamento.paginacao.js", {
+            callback: function () {
+                new treinamento.paginacao($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+            }
+        });
+    })
+</script>

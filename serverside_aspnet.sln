@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "serverside_aspnet", "serverside_aspnet\serverside_aspnet.csproj", "{8227376B-932C-4AE2-A1E7-3C14447BBB57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serverside_servico", "serverside_servico\serverside_servico.csproj", "{036E4EBC-7EBC-43C1-BB6F-65F4B9851354}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8227376B-932C-4AE2-A1E7-3C14447BBB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8227376B-932C-4AE2-A1E7-3C14447BBB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8227376B-932C-4AE2-A1E7-3C14447BBB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8227376B-932C-4AE2-A1E7-3C14447BBB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036E4EBC-7EBC-43C1-BB6F-65F4B9851354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036E4EBC-7EBC-43C1-BB6F-65F4B9851354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036E4EBC-7EBC-43C1-BB6F-65F4B9851354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036E4EBC-7EBC-43C1-BB6F-65F4B9851354}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F3C17D5-9BAE-48DA-9E49-AD2032211B20}
+	EndGlobalSection
+EndGlobal

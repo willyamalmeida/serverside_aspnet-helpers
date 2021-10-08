@@ -1,0 +1,29 @@
+﻿@using System
+
+@model ComponenteTextModel
+
+@{
+    var modelParaOClientSide = new
+    {
+        identificador = Model.IdentificadorDaPropriedade
+    };
+}
+
+<input type="text"
+       id="@(Model.IdentificadorDaPropriedade)"
+       name="@(Model.IdentificadorDaPropriedade)"
+       value="@(Model.Objeto)"
+       placeholder="@(Model.Placeholder)"
+       class="form-control form-control-sm"
+       @if (Model.Desabilite) { <text> disabled</text>
+       } />
+
+<script>
+    $(function () {
+        treinamento.carregueJavascript("/js/treinamento.textbox.js", {
+            callback: function () {
+                new treinamento.textbox($("#@(Model.IdentificadorDaPropriedade)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+            }
+        });
+    })
+</script>

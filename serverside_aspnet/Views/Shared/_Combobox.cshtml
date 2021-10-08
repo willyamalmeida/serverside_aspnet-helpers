@@ -1,0 +1,31 @@
+﻿@model TreinamentoCombobox
+
+@{
+    var idComponente = Guid.NewGuid().ToString("N");
+
+    var modelParaOClientSide = new
+    {
+        controller = Model.Controller,
+        action = Model.Action,
+        campoChave = Model.CampoChave,
+        colunas = Model.Colunas
+    };
+}
+
+<div id="@(idComponente)">
+
+    <select name="@(Model.Propriedade)">
+    </select>
+
+</div>
+
+<script>
+        $(function() {
+            treinamento.carregueJavascript("/js/treinamento.combobox.js", {
+                callback: function() {
+                    new treinamento.combobox($("#@(idComponente)"),
+                        @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+                }
+            })
+        })
+</script>

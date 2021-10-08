@@ -1,0 +1,12 @@
+﻿@model ComponenteLabelModel
+
+
+<label class="control-label col-form-label-sm"
+       for="@(Model.IdentificadorDaPropriedade)">
+    @Model.Label
+</label>
+
+@if (Model.Obrigatorio)
+{
+    <span class="obrigatorio">●</span>
+}

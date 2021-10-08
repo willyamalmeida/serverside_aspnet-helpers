@@ -1,0 +1,47 @@
+﻿@using System
+
+@model DtoDepartamento
+
+@{
+    ViewData["Title"] = "Departamento";
+
+    var idComponente = Guid.NewGuid().ToString("N");
+    var codigo = Model == null ? 0 : Model.Codigo;
+    var novoRegistro = codigo == 0;
+
+    var modelParaOClientSide = new { codigo, novoRegistro };
+}
+
+<div id="@(idComponente)" class="painel views-departamento-editar">
+
+    @using (Html.BeginForm("Salvar", "Departamento", FormMethod.Post, new { @class = "form-horizontal needs-validation" }))
+    {
+        @(Html.TreinamentoBarraDeBotoes()
+            .Adicione("Salvar")
+            .Adicione("Excluir", "Excluir", new { @codigo }, !novoRegistro)
+            .Adicione("Cancelar e Voltar", "Index"))
+
+        @Html.TreinamentoTitulo("Departamento")
+
+        @(Html.TreinamentoLayoutGrid()
+            .AdicioneColuna(2, @<text> @Html.TreinamentoLabelFor(x => x.Codigo, "Código")</text>)
+            .AdicioneColuna(2, @<text> @Html.TreinamentoTextBoxFor(x => x.Codigo, desabilite: true)</text>))
+
+        @(Html.TreinamentoLayoutGrid()
+            .AdicioneColuna(2, @<text> @Html.TreinamentoLabelFor(x => x.Descricao, "Descrição", true) </text>)
+            .AdicioneColuna(5, @<text> @Html.TreinamentoTextBoxFor(x => x.Descricao, obrigatorio: true) </text>))
+    }
+
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            treinamento.carregueJavascript("/js/treinamento.views.departamento.editar.js", {
+                callback: function () {
+                    new treinamento.views.departamento.editar($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+                }
+            });
+        })
+    </script>
+}

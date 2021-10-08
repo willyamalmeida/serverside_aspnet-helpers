@@ -1,0 +1,60 @@
+﻿@using serverside_aspnet.Models.Enumeradores
+
+@model PessoaModel
+
+@{
+    var lista = ViewData["ListaDeEstadoCivil"] as List<EnumEstadoCivilModel>;
+    var typeEstadoCivil = typeof(EnumEstadoCivilModel);
+    var listaDeEstadoCivil = lista.Select(x => new SelectListItem(typeEstadoCivil.GetEnumName(x), x.ToString())).ToList();
+}
+
+<div>
+    <div class="row">
+        <div class="col-3 text-right">
+            @Html.LabelFor(x => x.Nome)
+        </div>
+        <div class="col">
+            @Html.TextBoxFor(x => x.Nome)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3 text-right">
+            @Html.LabelFor(x => x.EstadoCivil)
+        </div>
+        <div class="col">
+            @Html.DropDownListFor(x => x.EstadoCivil, listaDeEstadoCivil)
+        </div>
+    </div>
+
+    <!--EditorTemplate-->
+    @*<div class="row">
+            <div class="col-3 text-right">
+                @Html.LabelFor(x => x.Contato)
+            </div>
+            <div class="col">
+                @Html.EditorFor(x => x.Contato)
+            </div>
+        </div>*@
+
+    <!--EditorTemplate-->
+    @*@Html.EditorFor(x => x.Contato, "Contato")*@
+
+    <!--DisplayTemplate-->
+    <!--Tem que inicializar os objetos-->
+    @*<div class="row">
+            <div class="col-3 text-right">
+                @Html.LabelFor(x => x.Contato)
+            </div>
+            <div class="col">
+                @Html.DisplayFor(x => x.Contato)
+            </div>
+        </div>*@
+
+    <!--PartialViews-->
+    @*@Html.Partial("_Contato")*@
+
+
+    <!--PartialViews-->
+    @*@Html.Partial("_Endereco")*@
+</div>

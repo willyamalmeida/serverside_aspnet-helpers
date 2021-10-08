@@ -1,0 +1,84 @@
+﻿@using System
+
+@model serverside_servico.Dtos.DtoFuncionario
+
+@{
+    ViewData["Title"] = "Funcionario";
+
+    var idComponente = Guid.NewGuid().ToString("N");
+    var codigo = Model == null ? 0 : Model.Codigo;
+    var novoRegistro = codigo == 0;
+
+    var modelParaOClientSide = new { codigo, novoRegistro };
+}
+
+<div id="@(idComponente)" class="painel views-funcionario-editar">
+    @using (Html.BeginForm("Salvar", "Funcionario", FormMethod.Post, new { @class = "form-horizontal needs-validation" }))
+    {
+        <nav class="barra-botoes">
+            <a name="salvar" href="#" class="btn btn-default btn-sm" role="button">Salvar</a>
+
+            @if (!novoRegistro)
+            {
+                @Html.ActionLink("Excluir", "Excluir", new { @codigo }, new { @class = "btn btn-default btn-sm", @role = "button" })
+            }
+
+            @Html.ActionLink("Cancelar e Voltar", "Index", new { }, new { @class = "btn btn-default btn-sm", @role = "button" })
+        </nav>
+
+        <h3 class="titulo">Funcionário</h3>
+
+        <div class="row">
+            <div class="col-sm-2 text-right">
+                @Html.LabelFor(x => x.Codigo, new { @class = "control-label col-form-label-sm", @for = "Codigo" })
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(x => x.Codigo, new { @class = "form-control form-control-sm", @readonly = "" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 text-right">
+                @Html.LabelFor(x => x.Nome, new { @class = "control-label col-form-label-sm", @for = "Nome" })
+                <span class="obrigatorio">●</span>
+            </div>
+            <div class="col-sm-5">
+                @Html.TextBoxFor(x => x.Nome, new { @class = "form-control form-control-sm", @placeholder = "Campo obrigatório", @required = "" })
+            </div>
+        </div>
+
+        @*<div class="row">
+                <div class="col-sm-2 text-right">
+                    @Html.LabelFor(x => x.Departamento, new { @class = "control-label col-form-label-sm", @for = "Departamento" })
+                    <span class="obrigatorio">●</span>
+                </div>
+                <div class="col-sm-5">
+                    @Html.TreinamentoCombogridDepartamentoFor(x => x.Departamento).Obrigatorio(true)
+                </div>
+            </div>*@
+
+        <div class="row">
+            <div class="col-sm-2 text-right">
+                @Html.LabelFor(x => x.Departamento.Codigo,
+               new { @class = "control-label col-form-label-sm", @for = "Departamento" })
+                <span class="obrigatorio">●</span>
+            </div>
+            <div class="col-sm-5">
+                @Html.ComboboxDepartamentoFor(x => x.Departamento.Codigo)
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            treinamento.carregueJavascript("/js/treinamento.views.funcionario.editar.js", {
+                callback: function() {
+                    new treinamento.views.funcionario.editar($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+                }
+            })
+        })
+    </script>
+}

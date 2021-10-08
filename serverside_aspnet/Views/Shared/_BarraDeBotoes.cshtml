@@ -1,0 +1,8 @@
+﻿@model List<ComponenteBarraDeBotoesModel>
+
+<nav class="barra-botoes">
+    @foreach (var menu in Model)
+    {
+        @Html.ActionLink(menu.Nome, menu.Action, menu.Parametros, new { @class = "btn btn-default btn-sm", @role = "button" })
+    }
+</nav>

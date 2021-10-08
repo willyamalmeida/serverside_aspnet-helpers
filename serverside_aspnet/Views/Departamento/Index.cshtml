@@ -1,0 +1,37 @@
+﻿@using System
+@using serverside_aspnet.Helpers
+
+@{
+    ViewData["Title"] = "Departamento";
+
+    var idComponente = Guid.NewGuid().ToString("N");
+
+    var modelParaOClientSide = new { };
+}
+
+<div id="@(idComponente)" class="painel views-departamento-index">
+    @Html.TreinamentoBarraDeBotoes().Adicione("Novo", "Novo")
+
+    @Html.TreinamentoTitulo("Informações do Departamento")
+
+    @(Html.TreinamentoTabela("Tabela")
+        .Controller("Departamento")
+        .ActionConsulte("ConsulteParcial")
+        .ActionEditar("Editar")
+        .Paginacao(1, 5)
+        .AdicioneColuna("Código", "codigo", 1, true)
+        .AdicioneColuna("Descrição", "descricao")
+        .HabiliteFiltro())
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            treinamento.carregueJavascript("/js/treinamento.views.departamento.index.js", {
+                callback: function() {
+                    new treinamento.views.departamento.index($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+                }
+            })
+        })
+    </script>
+}

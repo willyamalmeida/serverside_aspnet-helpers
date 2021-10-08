@@ -1,0 +1,80 @@
+﻿@using System
+@using serverside_aspnet.Helpers
+
+@{
+    ViewData["Title"] = "Funcionario";
+
+    var idComponente = Guid.NewGuid().ToString("N");
+
+    var modelParaOClientSide = new
+    {
+        pagina = 1,
+        quantidade = 5
+    };
+}
+
+<div id="@(idComponente)" class="painel views-funcionario-index">
+    <nav class="barra-botoes">
+        @Html.ActionLink("Novo", "Novo", new { }, new { @class = "btn btn-default btn-sm", @role = "button" })
+    </nav>
+
+    <h3 class="titulo">Informações do Funcionário</h3>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            @Html.TextBox("filtro", null, new { @class = "form-control form-control-sm", @placeholder = "Filtro..." })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <table name="tabela" class="table table-sm table-condensed table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="col-1" scope="col">Código</th>
+                        <th class="col-5" scope="col">Nome</th>
+                        <th class="col-6" scope="col">Departamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="col-1">
+                            <button class="btn btn-link border btn-sm" name="atualizar">
+                                <img src="~/images/atualizar.svg" />
+                            </button>
+                        </th>
+                        <th class="col-5 align-items-center">
+                            @(Html.TreinamentoPaginacao("paginacao")
+                                  .Controller("Funcionario")
+                                  .Action("ConsultePaginado")
+                                  .Pagina(modelParaOClientSide.pagina)
+                                  .Quantidade(modelParaOClientSide.quantidade)
+                                  .SeletorTabela(".views-funcionario-index")
+                                  .ApiTabela("treinamento.views.funcionario.index"))
+
+                        </th>
+                        <th class="col-6 text-right">
+                            <label>
+                                <span id="total" class="badge badge-secondary rounded-circle">0</span>
+                            </label>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            treinamento.carregueJavascript("/js/treinamento.views.funcionario.index.js", {
+                callback: function() {
+                    new treinamento.views.funcionario.index($("#@(idComponente)"), @Html.Raw(Json.Serialize(@modelParaOClientSide)));
+                }
+            })
+        })
+    </script>
+}

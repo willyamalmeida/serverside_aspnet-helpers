@@ -1,0 +1,10 @@
+version: '2.1'
+services:
+
+  mssql:
+    image: treinamentoaspnet:v1
+    ports:
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "@dmin1@dmin1"

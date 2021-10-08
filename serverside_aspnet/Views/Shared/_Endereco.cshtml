@@ -1,0 +1,46 @@
+﻿@model EnderecoModel
+
+<div class="row">
+    <div class="col-3">
+        @Html.LabelFor(x => x.Cep)
+    </div>
+    <div class="col">
+        @Html.EditorFor(x => x.Cep)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        @Html.LabelFor(x => x.Logradouro)
+    </div>
+    <div class="col">
+        @Html.EditorFor(x => x.Logradouro)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 text-right">
+        @Html.LabelFor(x => x.Complemento)
+    </div>
+    <div class="col">
+        @Html.EditorFor(x => x.Complemento)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 text-right">
+        @Html.LabelFor(x => x.Bairro)
+    </div>
+    <div class="col">
+        @Html.EditorFor(x => x.Bairro)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 text-right">
+        @Html.LabelFor(x => x.Cidade)
+    </div>
+    <div class="col">
+        @Html.EditorFor(x => x.Cidade)
+    </div>
+</div>
